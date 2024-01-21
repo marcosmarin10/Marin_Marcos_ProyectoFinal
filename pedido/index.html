@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Documento</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header class="header">
+        <div class="header-top-border">
+            <div class="menu container">
+                <a href="../" class="logo">MAMBA</a>
+                <input type="checkbox" id="menu" />
+                <label for="menu">
+                    <img src="../images/menu.png" class="menu-icono" alt="menu" />
+                </label>
+                <nav class="navbar">
+                    <ul>
+                        <li><a href="../">Inicio</a></li>
+                        <li class="dropdown-li">
+                            Productos
+                            <ul class="dropdown">
+                                <li class="dropdowns"><a class="dropdowns-link" href="../camisetas/">Camisetas</a></li>
+                                <li class="dropdowns"><a class="dropdowns-link" href="../zapatillas/">Zapatillas</a>
+                                </li>
+                                <li class="dropdowns"><a class="dropdowns-link" href="../accesorios/">Accesorios</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li><a href="../contacto/">Contacto</a></li>
+
+                    </ul>
+                </nav>
+                <div>
+                    <ul>
+                        <li class="submenu">
+                            <span id="contador-carrito" class="contador-carrito">0</span>
+                            <img src="../images/car.svg" id="img-carrito" alt="carrito">
+                            <div id="carrito">
+                                <table id="lista-carrito">
+                                    <thead>
+                                        <tr>
+                                            <th>Imagen</th>
+                                            <th>Nombre</th>
+                                            <th>Precio</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                                <a href="#" id="vaciar-carrito" class="btn-2">Vaciar Carrito</a>
+                                <a href="./" class="btn-2">Realizar Pedido</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main class="products container">
+        <h2>Tu Carrito de Compras</h2>
+        <div id="lista-productos">
+        </div>
+        <div id="total" class="total">Total: 0€</div>
+        <button id="realizar-pedido">Realizar Pedido</button>
+        <div id="mensaje-agradecimiento" style="display:none;">
+            <p>Gracias por tu pedido</p>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
