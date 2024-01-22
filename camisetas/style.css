@@ -273,7 +273,7 @@ th, td{
     margin-bottom: 15px;
 }
 
-.product p, .precio{
+.precio{
     font-size: 16px;
     color: black;
     margin-bottom: 15px;
@@ -369,4 +369,36 @@ img.tick-producto {
 .header-top-border {
     border-bottom: 1px solid black;
     width: 100%;
+}
+
+.ofert-1:hover {
+    transform: scale(1.1);
+    transition: all 0.3s;
+    filter: brightness(1.1);
+    cursor: pointer;
+
+}
+.product:hover {
+    transform: scale(1.1);
+    transition: all 0.3s;
+    filter: brightness(1.1);
+    cursor: pointer;
+}
+.btn-2 {
+    transition: all 0.3s;
+}
+.btn-2:hover {
+    background-color: #2b2b2b;
+    transition: all 0.3s;
+}
+
+.product {
+    transition: all 0.3s;
+}
+
+.precio-oferta {
+    color: red;
+    font-weight: bold;
+    font-size: 23px;
+    margin-bottom: 10px;
 }

@@ -1,3 +1,16 @@
+<?php
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "abfinal";
+
+    $conn = new mysqli($servername, $username, $password, $dbname);
+
+    if ($conn->connect_error) {
+        die("Conexión fallida: " . $conn->connect_error);
+    }
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -31,7 +44,7 @@
                             Productos
                             <ul class="dropdown">
                                 <li class="dropdowns"><a class="dropdowns-link" href="../camisetas/">Camisetas</a></li>
-                                <li class="dropdowns"><a class="dropdowns-link" href="../zapatillas/">Zapatillas</a></li>
+                                <li class="dropdowns"><a class="dropdowns-link" href="./">Zapatillas</a></li>
                                 <li class="dropdowns"><a class="dropdowns-link" href="../accesorios/">Accesorios</a>
                                 </li>
                             </ul>
@@ -71,64 +84,30 @@
 
     <main class="products container" id="lista-1">
 
-        <h2>Accesorios</h2>
+        <h2>Zapatillas</h2>
 
         <div class="product-content">
 
-            <div class="product">
-                <img src="/images/balon wilson.jpg" alt="">
-                <div class="product-txt">
-                    <h3>Balón oficial nba wilson</h3>
-                    <p class="precio">135€</p>
-                    <a href="#" class="agregar carrito btn-2" data-id="1">Agregar al carrito</a>
-                </div>
-            </div>
+        <?php
+            $sql = "SELECT * FROM productos WHERE categoria = 'zapatilla'";
+            $result = $conn->query($sql);
 
-            <div class="product">
-                <img src="../images/cinta jordan.jpg" alt="">
-                <div class="product-txt">
-                    <h3>CINTA JORDAN AZUL CIAN</h3>
-                    <p class="precio">10€</p>
-                    <a href="#" class="agregar carrito btn-2" data-id="2">Agregar al carrito</a>
-                </div>
-            </div>
-
-            <div class="product">
-                <img src="../images/gorra denver.jpg" alt="">
-                <div class="product-txt">
-                    <h3>Gorra all star denver 2005</h3>
-                    <p class="precio">35€</p>
-                    <a href="#" class="agregar carrito btn-2" data-id="3">Agregar al carrito</a>
-                </div>
-            </div>
-
-            <div class="product">
-                <img src="../images/gorra raptoras.jpg" alt="">
-                <div class="product-txt">
-                    <h3>Gorra Toronto Raptors</h3>
-                    <p class="precio">30€</p>
-                    <a href="#" class="agregar carrito btn-2" data-id="4">Agregar al carrito</a>
-                </div>
-            </div>
-
-            <div class="product">
-                <img src="../images/miniaro.jpg" alt="">
-                <div class="product-txt">
-                    <h3>Mini aro nba</h3>
-                    <p class="precio">20€</p>
-                    <a href="#" class="agregar carrito btn-2" data-id="5">Agregar al carrito</a>
-                </div>
-            </div>
-
-            <div class="product">
-                <img src="../images/llavero coleccionista celtics.jpg" alt="">
-                <div class="product-txt">
-                    <h3>Llavero acrílico de coleccionista Boston celtics</h3>
-                    <p class="precio">5€</p>
-                    <a href="#" class="agregar carrito btn-2" data-id="6">Agregar al carrito</a>
-                </div>
-            </div>
-
+            if ($result->num_rows > 0) {
+                while($row = $result->fetch_assoc()) {
+                    echo "<a href='../producto/?id={$row["id"]}'' class='product'>";
+                    echo "<img src='../images/{$row["imagen"]}' alt='{$row["nombre"]}' />";
+                    echo "<div class='product-txt'>";
+                    echo "<h3>{$row["nombre"]}</h3>";
+                    echo "<p class='precio'>{$row["precio"]}€</p>";
+                    if ($row["precio_oferta"]) {
+                        echo "<p class='precio-oferta'>{$row["precio_oferta"]}€</p>";
+                    }    
+                    echo "<div class='btn-2'>Agregar al carrito</div>";
+                    echo "</div>";
+                    echo "</a>";
+                }
+            }
+        ?>
         </div>
 
     </main>

@@ -370,3 +370,28 @@ img.tick-producto {
     border-bottom: 1px solid black;
     width: 100%;
 }
+
+.ofert-1:hover {
+    transform: scale(1.1);
+    transition: all 0.3s;
+    filter: brightness(1.1);
+    cursor: pointer;
+
+}
+.product:hover {
+    transform: scale(1.1);
+    transition: all 0.3s;
+    filter: brightness(1.1);
+    cursor: pointer;
+}
+.btn-2 {
+    transition: all 0.3s;
+}
+.btn-2:hover {
+    background-color: #2b2b2b;
+    transition: all 0.3s;
+}
+
+.product {
+    transition: all 0.3s;
+}

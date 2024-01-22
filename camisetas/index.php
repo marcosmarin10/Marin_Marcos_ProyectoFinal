@@ -1,3 +1,16 @@
+<?php
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "abfinal";
+
+    $conn = new mysqli($servername, $username, $password, $dbname);
+
+    if ($conn->connect_error) {
+        die("Conexión fallida: " . $conn->connect_error);
+    }
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -30,8 +43,9 @@
                         <li class="dropdown-li">
                             Productos
                             <ul class="dropdown">
-                                <li class="dropdowns"><a class="dropdowns-link" href="../camisetas/">Camisetas</a></li>
-                                <li class="dropdowns"><a class="dropdowns-link" href="./">Zapatillas</a></li>
+                                <li class="dropdowns"><a class="dropdowns-link" href="./">Camisetas</a></li>
+                                <li class="dropdowns"><a class="dropdowns-link" href="../zapatillas/">Zapatillas</a>
+                                </li>
                                 <li class="dropdowns"><a class="dropdowns-link" href="../accesorios/">Accesorios</a>
                                 </li>
                             </ul>
@@ -39,7 +53,6 @@
                         <li><a href="../contacto/">Contacto</a></li>
 
                     </ul>
-                </nav>
                 </nav>
                 <div>
                     <ul>
@@ -65,100 +78,36 @@
                     </ul>
                 </div>
             </div>
+
         </div>
     </header>
 
 
     <main class="products container" id="lista-1">
 
-        <h2>Zapatillas</h2>
+        <h2>Camisetas</h2>
 
         <div class="product-content">
+        <?php
+            $sql = "SELECT * FROM productos WHERE categoria = 'camiseta'";
+            $result = $conn->query($sql);
 
-            <div class="product">
-                <img src="/images/adidas crazy light 2011 rose.jfif" alt="">
-                <div class="product-txt">
-                    <h3>Zapatillas Adidas crazy light Derrick Rose "2011"</h3>
-                    <p class="precio">155€</p>
-                    <a href="#" class="agregar carrito btn-2" data-id="1">Agregar al carrito</a>
-                </div>
-            </div>
-
-            <div class="product">
-                <img src="../images/nike kobe 4  20098.jfif" alt="">
-                <div class="product-txt">
-                    <h3>Zapatillas Nike Kobe 4 "2009"</h3>
-                    <p class="precio">180€</p>
-                    <a href="#" class="agregar carrito btn-2" data-id="2">Agregar al carrito</a>
-                </div>
-            </div>
-
-            <div class="product">
-                <img src="../images/jordan 4 89.jfif" alt="">
-                <div class="product-txt">
-                    <h3>Zapatillas Nike Jordan 4 "1989"</h3>
-                    <p class="precio">185€</p>
-                    <a href="#" class="agregar carrito btn-2" data-id="3">Agregar al carrito</a>
-                </div>
-            </div>
-
-            <div class="product">
-                <img src="../images/reebok question 96 iverson.jfif" alt="">
-                <div class="product-txt">
-                    <h3>Zapatillas Reebok Question Allen Iverson "1996"</h3>
-                    <p class="precio">160€</p>
-                    <a href="#" class="agregar carrito btn-2" data-id="4">Agregar al carrito</a>
-                </div>
-            </div>
-
-            <div class="product">
-                <img src="../images/kobegrinch.jpg" alt="">
-                <div class="product-txt">
-                    <h3>Nike Kobe 6 Grinch Edition</h3>
-                    <p class="precio">240€</p>
-                    <a href="#" class="agregar carrito btn-2" data-id="5">Agregar al carrito</a>
-                </div>
-            </div>
-
-            <div class="product">
-                <img src="../images/suprestar kareem.jfif" alt="">
-                <div class="product-txt">
-                    <h3>Zapatillas Adidas Superstar Kareem Abdul-Jabbar</h3>
-                    <p class="precio">130€</p>
-                    <a href="#" class="agregar carrito btn-2" data-id="6">Agregar al carrito</a>
-                </div>
-            </div>
-
-            <div class="product">
-                <img src="../images/converse pro leather erving 76.jfif" alt="">
-                <div class="product-txt">
-                    <h3>Zapatillas Converse Pro Leather Julius Erving "1976"</h3>
-                    <p class="precio">110€</p>
-                    <a href="#" class="agregar carrito btn-2" data-id="7">Agregar al carrito</a>
-                </div>
-            </div>
-
-            <div class="product">
-                <img src="../images/air jordan 5 de 1990.jfif" alt="">
-                <div class="product-txt">
-                    <h3>Zapatillas Air Jordan 5 "1990"</h3>
-                    <p class="precio">220€</p>
-                    <a href="#" class="agregar carrito btn-2" data-id="8">Agregar al carrito</a>
-                </div>
-            </div>
-
-            <div class="product">
-                <img src="../images/jordan 11 95.jfif" alt="">
-                <div class="product-txt">
-                    <h3>Zapatillas Air Jordan 11 "1995"</h3>
-                    <p class="precio">230€</p>
-                    <a href="#" class="agregar carrito btn-2" data-id="9">Agregar al carrito</a>
-                </div>
-            </div>
-
-
-
-
+            if ($result->num_rows > 0) {
+                while($row = $result->fetch_assoc()) {
+                    echo "<a href='../producto/?id={$row["id"]}'' class='product'>";
+                    echo "<img src='../images/{$row["imagen"]}' alt='{$row["nombre"]}' />";
+                    echo "<div class='product-txt'>";
+                    echo "<h3>{$row["nombre"]}</h3>";
+                    echo "<p class='precio'>{$row["precio"]}€</p>";
+                    if ($row["precio_oferta"]) {
+                        echo "<p class='precio-oferta'>{$row["precio_oferta"]}€</p>";
+                    }    
+                    echo "<div class='btn-2'>Agregar al carrito</div>";
+                    echo "</div>";
+                    echo "</a>";
+                }
+            }
+        ?>
         </div>
 
     </main>

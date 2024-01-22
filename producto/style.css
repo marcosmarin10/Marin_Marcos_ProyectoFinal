@@ -17,8 +17,6 @@ font-family: 'Oswald', sans-serif;
 }
 
 .header {
-    display:flex;
-    align-items: center;
     background-color: white;
     padding-bottom:70px;
 }
@@ -104,7 +102,7 @@ body {
   font-family: "Oswald", sans-serif;
 }
 
-img{ 
+img{
   max-width: 100%;
 }
 
@@ -152,11 +150,11 @@ th, td{
 }
 
 .header-content{
-    display: flex;
+    /* display: flex; */
     justify-content: space-between;
     align-items: center;
-    flex: 1;
-    position: relative;
+    /* flex: 1; */
+    /* position: relative; */
 }
 
 
@@ -201,7 +199,11 @@ th, td{
     align-items: center;
     flex-basis: calc(33.3% - 15px);
     background-color: white;
-    padding: 35px;
+    margin: 25px;
+    transition: all 0.3s;
+    border: 1px solid #000;
+    padding: 10px;
+    border-radius: 15px;
 }
 
 .ofert-img{
@@ -223,7 +225,7 @@ th, td{
     font-family:"Oswald";
     font-size: 25px;
     text-transform: uppercase;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     min-width: 200px;
 }
 
@@ -257,12 +259,8 @@ th, td{
 .product{
     text-align: center;
     padding: 30px;
-    box-shadow: 0 0 20px black(0,0,0,0.1);
-}
-
-.product img{
-    width:250px;
-    margin-bottom: 20px;
+    transition: all 0.3s;
+    display: flex;
 }
 
 .product h3{
@@ -273,7 +271,7 @@ th, td{
     margin-bottom: 15px;
 }
 
-.precio{
+.product p, .precio{
     font-size: 16px;
     color: black;
     margin-bottom: 15px;
@@ -378,12 +376,7 @@ img.tick-producto {
     cursor: pointer;
 
 }
-.product:hover {
-    transform: scale(1.1);
-    transition: all 0.3s;
-    filter: brightness(1.1);
-    cursor: pointer;
-}
+
 .btn-2 {
     transition: all 0.3s;
 }
@@ -392,8 +385,9 @@ img.tick-producto {
     transition: all 0.3s;
 }
 
-.product {
-    transition: all 0.3s;
+
+.precio-normal {
+    text-decoration: line-through;
 }
 
 .precio-oferta {
@@ -401,4 +395,39 @@ img.tick-producto {
     font-weight: bold;
     font-size: 23px;
     margin-bottom: 10px;
+}
+
+.imagen-principal {
+    width: 80%;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.imagen-principal img {
+    width: 80%;
+    height: auto;
+}
+
+.imagenes-secundarias img {
+    width: 100%;
+    height: auto;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.img-viewer {
+    display: flex;
+    width: 70%;
+    padding-right: 20px;
+}
+
+.imagenes-secundarias {
+    display: grid;
+    width: 20%;
+}
+
+.producto-info {
+    width: 30%;
+    border-left: 1px solid;
+    padding-left: 20px;
 }

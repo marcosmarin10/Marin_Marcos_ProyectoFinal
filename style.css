@@ -225,7 +225,7 @@ th, td{
     font-family:"Oswald";
     font-size: 25px;
     text-transform: uppercase;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     min-width: 200px;
 }
 
@@ -302,14 +302,14 @@ th, td{
 
 .icon-txt h3{
     font-size: 20px;
-    color: black;
+    color:black;
     font-family: "Oswald";
     text-transform: uppercase;
 }
 
 .icon-txt p{
     font-size: 16px;
-    color: black;
+    color:black;
 }
 
 .footer{
@@ -380,6 +380,11 @@ img.tick-producto {
     cursor: pointer;
 
 }
+
+.product {
+    transition: all 0.3s;
+}
+
 .product:hover {
     transform: scale(1.1);
     transition: all 0.3s;
@@ -392,4 +397,19 @@ img.tick-producto {
 .btn-2:hover {
     background-color: #2b2b2b;
     transition: all 0.3s;
+}
+
+
+.precio-normal {
+    text-decoration: line-through;
+}
+
+.precio-oferta {
+    color: red;
+    font-weight: bold;
+    font-size: 23px;
+    margin-bottom: 10px;
+}
+.precio-normal {
+    color: #000;
 }

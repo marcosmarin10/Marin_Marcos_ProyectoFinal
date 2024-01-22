@@ -21,17 +21,32 @@ function agregarAlCarrito(event) {
     const boton = event.target;
     const producto = boton.closest('.product');
     const imagen = producto.querySelector('img').src;
+    const nombreProducto = producto.querySelector('h3').textContent;
+    let precioProducto;
+
+    const precioNormal = producto.querySelector('.precio');
+    const precioOferta = producto.querySelector('.precio-oferta');
+
+    if (precioOferta) {
+        precioProducto = precioOferta.textContent;
+    } else if (precioNormal) {
+        precioProducto = precioNormal.textContent;
+    } else {
+        console.error('Precio no encontrado');
+        return;
+    }
+
     const productoInfo = {
         id: boton.getAttribute('data-id'),
         imagen: imagen,
-        nombre: producto.querySelector('h3').textContent,
-        precio: producto.querySelector('.precio').textContent
+        nombre: nombreProducto,
+        precio: precioProducto
     };
     insertarCarrito(productoInfo, true);
     guardarCarritoEnLocalStorage();
 }
 
-function insertarCarrito(producto, mostrarPopupFlag) {
+function insertarCarrito(producto, mostrarPopup = false) {
     const carrito = document.querySelector('#lista-carrito tbody');
     const row = document.createElement('tr');
 
@@ -46,8 +61,8 @@ function insertarCarrito(producto, mostrarPopupFlag) {
     botonEliminar.addEventListener('click', eliminarProducto);
 
     carrito.appendChild(row);
-    if (mostrarPopupFlag) {
-        mostrarPopup();
+    if (mostrarPopup) {
+        mostrarPopupCarrito();
     }
     actualizarContadorCarrito();
     scrollHaciaCarrito();
@@ -78,7 +93,7 @@ function eliminarProducto(event) {
     guardarCarritoEnLocalStorage();
 }
 
-function mostrarPopup() {
+function mostrarPopupCarrito() {
     const popupContenedor = document.getElementById('popup-contenedor');
     popupContenedor.classList.add('popup-visible');
 
@@ -105,7 +120,7 @@ function cargarCarritoDeLocalStorage() {
     if (localStorage.getItem('carrito')) {
         const productos = JSON.parse(localStorage.getItem('carrito'));
         productos.forEach(producto => {
-            insertarCarrito(producto, false);
+            insertarCarrito(producto);
         });
     }
 }
