@@ -18,7 +18,6 @@
 
     <header class="header">
         <div class="header-top-border">
-
             <div class="menu container">
                 <a href="../" class="logo">MAMBA</a>
                 <input type="checkbox" id="menu" />
@@ -38,7 +37,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <li><a href="./">Contacto</a></li>
+                        <li><a href="../contacto/">Contacto</a></li>
 
                     </ul>
                 </nav>
@@ -60,7 +59,7 @@
                                     <tbody></tbody>
                                 </table>
                                 <a href="#" id="vaciar-carrito" class="btn-2">Vaciar Carrito</a>
-                                <a href="../pedido/" class="btn-2">Realizar Pedido</a>
+                                <a href="./" class="btn-2">Realizar Pedido</a>
                             </div>
                         </li>
                     </ul>
@@ -70,23 +69,31 @@
     </header>
     <main class="products container">
         <form method="POST" action="./contact.php">
-            <label for="nombre">Nombre:</label><br />
-            <input type="text" id="nombre" name="nombre" /><br />
 
-            <label for="apellido">Apellidos:</label><br />
-            <input type="text" id="apellido" name="apellido" /><br />
-
-            <label for="telefono">Teléfono:</label><br />
-            <input type="number" id="telefono" name="telefono" /><br />
-
-            <label for="email">E-mail:</label><br />
-            <input type="email" id="email" name="email" /><br />
-
-            <label for="mensaje">Mensaje:</label><br />
-            <textarea id="mensaje" name="mensaje"></textarea><br />
-            <input type="submit" value="Enviar mensaje" />
+            <div class="mb-3">
+                <label for="nombre" class="form-label">Nombre</label>
+                <input type="text" class="form-control" required name="nombre" id="nombre" placeholder="Nombre">
+            </div>
+            <div class="mb-3">
+                <label for="apellido" class="form-label">Apellido</label>
+                <input type="text" class="form-control" required name="apellido" id="apellido" placeholder="Apellido">
+            </div>
+            <div class="mb-3">
+                <label for="telefono" class="form-label">Teléfono</label>
+                <input type="number" class="form-control" required name="telefono" id="telefono" placeholder="Teléfono">
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Dirección E-mail</label>
+                <input type="email" class="form-control" required name="email" id="email" placeholder="email">
+            </div>
+            <div class="mb-3">
+                <label for="mensaje" class="form-label">Mensaje</label>
+                <textarea class="form-control" required name="mensaje" id="mensaje" rows="3"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Enviar</button>
         </form>
     </main>
+    <script src="../script.js"></script>
 </body>
 
 </html>

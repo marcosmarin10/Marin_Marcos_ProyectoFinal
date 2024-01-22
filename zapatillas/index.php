@@ -113,62 +113,20 @@
     </main>
 
     <footer class="footer">
-
         <div class="footer-content container">
-
-            <div class="link">
-                <h3>lorem</h3>
-                <ul>
-                    <li><a href="#">Lorem</a></li>
-                    <li><a href="#">Lorem</a></li>
-                    <li><a href="#">Lorem</a></li>
-                    <li><a href="#">Lorem</a></li>
-                </ul>
+            <div class="link left-cont-footer">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3050.7135380786135!2d-3.84858142348012!3d40.1263869732587!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd41f11f69cacb37%3A0x4117d0b3060252c0!2sAv.%20Castilla%20La%20Mancha%2C%2084%2C%2045200%20Illescas%2C%20Toledo!5e0!3m2!1ses!2ses!4v1705882343044!5m2!1ses!2ses" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
-            <div class="link">
-                <h3>lorem</h3>
-                <ul>
-                    <li><a href="#">Lorem</a></li>
-                    <li><a href="#">Lorem</a></li>
-                    <li><a href="#">Lorem</a></li>
-                    <li><a href="#">Lorem</a></li>
-                </ul>
-
-
+            <div class="link right-cont-footer">
+                <div class="div-cont-footer-btn">
+                    <a class="footer-link" href="#">Teléfono: +34 661841131</a>
+                    <a class="footer-link" href="#">E-mail: mambastore@gmail.com</a>
+                    <a class="footer-link" href="#">¿Dónde nos encontramos? Avenida Castilla-La Mancha 43 Illescas </a>
+                </div>
             </div>
-
-            <div class="link">
-                <h3>lorem</h3>
-                <ul>
-                    <li><a href="#">Lorem</a></li>
-                    <li><a href="#">Lorem</a></li>
-                    <li><a href="#">Lorem</a></li>
-                    <li><a href="#">Lorem</a></li>
-                </ul>
-
-
-            </div>
-
-            <div class="link">
-                <h3>lorem</h3>
-                <ul>
-                    <li><a href="#">Lorem</a></li>
-                    <li><a href="#">Lorem</a></li>
-                    <li><a href="#">Lorem</a></li>
-                    <li><a href="#">Lorem</a></li>
-                </ul>
-
-
-            </div>
-
         </div>
-
-
+        </div>
     </footer>
-
-
-
-
     <script src="../script.js"></script>
 </body>
 

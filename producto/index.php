@@ -1,17 +1,58 @@
 <?php
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "abfinal";
-    $productId = isset($_GET['id']) ? $_GET['id'] : 0;
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "abfinal";
+$productId = isset($_GET['id']) ? $_GET['id'] : 0;
 
-    $conn = new mysqli($servername, $username, $password, $dbname);
+$conn = new mysqli($servername, $username, $password, $dbname);
 
-    if ($conn->connect_error) {
-        die("Conexión fallida: " . $conn->connect_error);
+if ($conn->connect_error) {
+    die("Conexión fallida: " . $conn->connect_error);
+}
+
+$sql = "SELECT * FROM productos WHERE id = ?";
+$stmt = $conn->prepare($sql);
+if (!$stmt) {
+    die("Error en la preparación de la consulta: " . $conn->error);
+}
+$stmt->bind_param("i", $productId);
+$stmt->execute();
+$result = $stmt->get_result();
+$product = $result->num_rows > 0 ? $result->fetch_assoc() : null;
+$stmt->close();
+
+$tallas = null;
+$tallasDisponibles = 0;
+if ($product) {
+    if ($product["categoria"] == "zapatilla") {
+        $sqlTallas = "SELECT * FROM talla_zapatillas WHERE producto_id = ?";
+    } elseif ($product["categoria"] == "camiseta") {
+        $sqlTallas = "SELECT * FROM talla_camisetas WHERE producto_id = ?";
     }
 
+    if (isset($sqlTallas)) {
+        $stmtTallas = $conn->prepare($sqlTallas);
+        if (!$stmtTallas) {
+            die("Error en la preparación de la consulta de tallas: " . $conn->error);
+        }
+        $stmtTallas->bind_param("i", $productId);
+        $stmtTallas->execute();
+        $resultTallas = $stmtTallas->get_result();
+        if ($resultTallas->num_rows > 0) {
+            $tallas = $resultTallas->fetch_assoc();
+            foreach ($tallas as $talla => $cantidad) {
+                if ($talla !== "producto_id") {
+                    $tallasDisponibles += intval($cantidad);
+                }
+            }
+        }
+        $stmtTallas->close();
+    }
+}
+$conn->close();
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -81,51 +122,50 @@
     </header>
 
     <main class="products container" id="lista-1">
-        <?php
-            $sql = "SELECT * FROM productos WHERE id = ?";
-            $stmt = $conn->prepare($sql);
-            if (!$stmt) {
-                die("Error en la preparación de la consulta: " . $conn->error);
-            }
-            $stmt->bind_param("i", $productId);
-            $stmt->execute();
-            $result = $stmt->get_result();
-
-            if ($result->num_rows > 0) {
-                $row = $result->fetch_assoc();
-                echo "<div class='product'>
+        <?php if ($product): ?>
+            <div class='product'>
                 <div class='img-viewer'>
-                        <div class='imagen-principal' id='imagenPrincipal'>
-                            <img src='../images/{$row["imagen"]}' id='imgPrincipal' alt='{$row["nombre"]}'>
-                        </div>
-                        <div class='imagenes-secundarias'>";
-                        if (!empty($row["imagen"])) {
-                            echo "<img src='../images/{$row["imagen"]}' class='img-secundaria' onclick='cambiarImagen(\"../images/{$row["imagen"]}\")'>";
+                    <div class='imagen-principal' id='imagenPrincipal'>
+                        <img src='../images/<?= htmlspecialchars($product["imagen"]) ?>' id='imgPrincipal' alt='<?= htmlspecialchars($product["nombre"]) ?>'>
+                    </div>
+                    <div class='imagenes-secundarias'>
+                        <?php 
+                        if (!empty($product["imagen"])) {
+                            echo "<img src='../images/" . htmlspecialchars($product["imagen"]) . "' class='img-secundaria' onclick='cambiarImagen(\"../images/" . htmlspecialchars($product["imagen"]) . "\")'>";
                         }
-                        if (!empty($row["imagen_2"])) {
-                            echo "<img src='../images/{$row["imagen_2"]}' class='img-secundaria' onclick='cambiarImagen(\"../images/{$row["imagen_2"]}\")'>";
+                        if (!empty($product["imagen_2"])) {
+                            echo "<img src='../images/" . htmlspecialchars($product["imagen_2"]) . "' class='img-secundaria' onclick='cambiarImagen(\"../images/" . htmlspecialchars($product["imagen_2"]) . "\")'>";
                         }
-                        if (!empty($row["imagen_3"])) {
-                            echo "<img src='../images/{$row["imagen_3"]}' class='img-secundaria' onclick='cambiarImagen(\"../images/{$row["imagen_3"]}\")'>";
+                        if (!empty($product["imagen_3"])) {
+                            echo "<img src='../images/" . htmlspecialchars($product["imagen_3"]) . "' class='img-secundaria' onclick='cambiarImagen(\"../images/" . htmlspecialchars($product["imagen_3"]) . "\")'>";
                         }
-                echo "</div>
+                        ?>
+                    </div>
                 </div>
-                <div class='producto-info'>";
-                echo "<h3>{$row["nombre"]}</h3>";
-                echo "<p class='precio'>Precio: {$row["precio"]}€</p>";
-                if ($row["precio_oferta"]) {
-                    echo "<p class='precio-oferta'>Precio de oferta: {$row["precio_oferta"]}€</p>";
-                }
-                echo "<a href='#' class='agregar carrito btn-2' data-id='{$row["id"]}' >Agregar al carrito</a>";
-                echo "</div>";
-                echo "</div>";
-            } else {
-                echo "<p>Producto no encontrado.</p>";
-            }
-
-            $stmt->close();
-            $conn->close();
-        ?>
+                <div class='producto-info'>
+                    <h3><?= htmlspecialchars($product["nombre"]) ?></h3>
+                    <p class='precio'>Precio: <?= htmlspecialchars($product["precio"]) ?>€</p>
+                    <?php if ($product["precio_oferta"]): ?>
+                        <p class='precio-oferta'>Precio de oferta: <?= htmlspecialchars($product["precio_oferta"]) ?>€</p>
+                    <?php endif; ?>
+                    <a href='#' class='agregar carrito btn-2' data-id='<?= $product["id"] ?>'>Agregar al carrito</a>
+                    <?php if ($tallas): ?>
+                        <div class='tallas-disponibles'>
+                            <p>Total de unidades disponibles: <?= $tallasDisponibles ?></p>
+                            <div class="tallas-div-cont">
+                                <?php foreach ($tallas as $talla => $cantidad): ?>
+                                    <?php if ($talla !== "producto_id" && $cantidad > 0): ?>
+                                        <p><?= htmlspecialchars($talla) ?>: <?= $cantidad ?></p>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            </div>
+        <?php else: ?>
+            <p>Producto no encontrado.</p>
+        <?php endif; ?>
     </main>
     <script src="../script.js"></script>
     <script>
