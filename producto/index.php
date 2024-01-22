@@ -1,5 +1,5 @@
 <?php
-$servername = "srv990.hstgr.io";
+$servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "abfinal";
