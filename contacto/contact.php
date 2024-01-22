@@ -1,5 +1,5 @@
 <?php
-$servername = "localhost";
+$servername = "srv990.hstgr.io";
 $username = "root";
 $password = "";
 $dbname = "abfinal";
@@ -21,7 +21,7 @@ $stmt->bind_param("sssss", $nombre, $apellido, $telefono, $email, $texto);
 
 $stmt->execute();
 
-echo "Pedido guardado exitosamente.";
+header('Location: ./?t=Formulario enviado correctamente');
 
 $stmt->close();
 $conn->close();
